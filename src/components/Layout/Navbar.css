@@ -1,0 +1,129 @@
+/* Navbar Styles */
+.navbar-container {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Light mode navbar */
+.navbar-light {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode navbar */
+.navbar-dark {
+  background: rgba(30, 41, 59, 0.8);
+  /* border: 1px solid rgba(168, 85, 247, 0.2); */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Navigation link styles */
+.nav-link {
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: none;
+  background: transparent;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+/* Light mode nav links */
+.nav-link-light {
+  color: #1f2937;
+}
+
+.nav-link-light:hover {
+  color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.1);
+}
+
+/* Dark mode nav links */
+.nav-link-dark {
+  color: #f8fafc;
+}
+
+.nav-link-dark:hover {
+  color: #a855f7;
+  background: rgba(168, 85, 247, 0.15);
+}
+
+/* Active state for nav links */
+.nav-link-active-light {
+  color: #8b5cf6 !important;
+  background: rgba(139, 92, 246, 0.1) !important;
+}
+
+.nav-link-active-dark {
+  color: #a855f7 !important;
+  background: rgba(168, 85, 247, 0.15) !important;
+}
+
+/* Logo gradient */
+.logo-gradient-light {
+  background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+}
+
+.logo-gradient-dark {
+  background: linear-gradient(135deg, #a855f7, #6366f1);
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  background: transparent !important;
+  border: none;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+.theme-toggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.5);
+}
+
+/* Learn More button */
+.learn-more-btn {
+  transition: all 0.3s ease;
+}
+
+.learn-more-light {
+  background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.learn-more-light:hover {
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+  transform: translateY(-2px);
+}
+
+.learn-more-dark {
+  background: linear-gradient(135deg, #a855f7, #d946ef);
+  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+}
+
+.learn-more-dark:hover {
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Mobile menu */
+.mobile-menu {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.mobile-menu-light {
+  background: rgba(255, 255, 255, 0.95);
+  border-top: 1px solid rgba(139, 92, 246, 0.1);
+}
+
+.mobile-menu-dark {
+  background: rgba(30, 41, 59, 0.95);
+  border-top: 1px solid rgba(168, 85, 247, 0.2);
+}

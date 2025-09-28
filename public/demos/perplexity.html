@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perplexity AI Assistant - Demo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            min-height: 100vh;
+        }
+        .demo-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 { color: #333; text-align: center; margin-bottom: 2rem; }
+        .chat-container {
+            height: 400px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 1rem;
+            overflow-y: auto;
+            background: #f8f9fa;
+            margin-bottom: 1rem;
+        }
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+        .user-message {
+            background: #007bff;
+            color: white;
+            margin-left: auto;
+        }
+        .ai-message {
+            background: #e9ecef;
+            color: #333;
+        }
+        .input-area {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .message-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .send-btn {
+            background: #007bff;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .send-btn:hover { background: #0056b3; }
+        .demo-note {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .feature-card {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .typing-indicator {
+            display: none;
+            color: #666;
+            font-style: italic;
+        }
+        .citations {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.5rem;
+            border-top: 1px solid #eee;
+            padding-top: 0.5rem;
+        }
+        .related-questions {
+            margin-top: 0.5rem;
+        }
+        .related-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin: 0.25rem;
+            cursor: pointer;
+        }
+        .related-btn:hover { background: #5a6268; }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>🔮 Perplexity AI Assistant Demo</h1>
+        
+        <div class="demo-note">
+            <strong>Demo Note:</strong> This demonstrates the Perplexity AI integration with real-time web search capabilities. 
+            The full Streamlit application provides API key configuration and advanced features.
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <h4>🌐 Real-time Search</h4>
+                <p>Access current web information</p>
+            </div>
+            <div class="feature-card">
+                <h4>📚 Source Citations</h4>
+                <p>Verifiable references included</p>
+            </div>
+            <div class="feature-card">
+                <h4>🤔 Related Questions</h4>
+                <p>Intelligent follow-up suggestions</p>
+            </div>
+            <div class="feature-card">
+                <h4>⚙️ Customizable</h4>
+                <p>Adjustable parameters and models</p>
+            </div>
+        </div>
+
+        <div class="chat-container" id="chatContainer">
+            <div class="message ai-message">
+                <strong>Perplexity AI:</strong> Hello! I'm your AI assistant with real-time web search capabilities. 
+                Ask me anything and I'll provide up-to-date information with source citations.
+                <div class="citations">
+                    💡 Try asking about current events, recent news, or any topic you're curious about!
+                </div>
+            </div>
+        </div>
+
+        <div class="typing-indicator" id="typingIndicator">
+            🔮 Perplexity AI is thinking and searching the web...
+        </div>
+
+        <div class="input-area">
+            <input type="text" id="messageInput" class="message-input" 
+                   placeholder="Ask me anything... (e.g., 'What's the latest news about AI?')"
+                   onkeypress="handleKeyPress(event)">
+            <button class="send-btn" onclick="sendMessage()">Send</button>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <p><strong>Want to try the full Perplexity AI application?</strong></p>
+            <button class="send-btn" onclick="window.open('https://streamlit-perplexity-url.com', '_blank')">
+                🚀 Launch Full Application
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const sampleResponses = {
+            "ai": "AI (Artificial Intelligence) refers to computer systems that can perform tasks typically requiring human intelligence. Recent developments include large language models like GPT-4, image generation tools, and advancements in robotics.",
+            "weather": "I can help you with weather information! For real-time weather data, I would search current meteorological services and provide you with accurate, up-to-date forecasts including temperature, precipitation, and severe weather alerts.",
+            "news": "Today's major news includes developments in technology, politics, and global events. Recent headlines cover AI advancements, economic updates, and international relations.",
+            "default": "That's an interesting question! With my real-time web search capabilities, I can find current information on virtually any topic. I search across reliable sources and provide citations so you can verify the information."
+        };
+
+        const sampleCitations = [
+            "https://example-news-source.com/article",
+            "https://research-journal.org/study",
+            "https://official-government-site.gov/data"
+        ];
+
+        const sampleRelatedQuestions = [
+            "What are the latest AI breakthroughs?",
+            "How is AI being used in healthcare?",
+            "What are the ethical concerns around AI?",
+            "How does machine learning work?"
+        ];
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            // Add user message
+            addMessage('user', message);
+            input.value = '';
+
+            // Show typing indicator
+            const typingIndicator = document.getElementById('typingIndicator');
+            typingIndicator.style.display = 'block';
+
+            // Simulate AI response
+            setTimeout(() => {
+                typingIndicator.style.display = 'none';
+                
+                let response = sampleResponses.default;
+                const lowerMessage = message.toLowerCase();
+                
+                if (lowerMessage.includes('ai') || lowerMessage.includes('artificial intelligence')) {
+                    response = sampleResponses.ai;
+                } else if (lowerMessage.includes('weather')) {
+                    response = sampleResponses.weather;
+                } else if (lowerMessage.includes('news') || lowerMessage.includes('latest')) {
+                    response = sampleResponses.news;
+                }
+
+                addMessage('ai', response, true);
+            }, 2000 + Math.random() * 1000);
+        }
+
+        function addMessage(type, content, includeExtras = false) {
+            const chatContainer = document.getElementById('chatContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}-message`;
+            
+            let messageContent = `<strong>${type === 'user' ? 'You' : 'Perplexity AI'}:</strong> ${content}`;
+            
+            if (includeExtras && type === 'ai') {
+                // Add citations
+                messageContent += '<div class="citations"><strong>📚 Sources:</strong><br>';
+                sampleCitations.slice(0, 2).forEach((citation, index) => {
+                    messageContent += `[${index + 1}] ${citation}<br>`;
+                });
+                messageContent += '</div>';
+
+                // Add related questions
+                messageContent += '<div class="related-questions"><strong>🤔 Related questions:</strong><br>';
+                sampleRelatedQuestions.slice(0, 3).forEach(question => {
+                    messageContent += `<button class="related-btn" onclick="askRelatedQuestion('${question}')">${question}</button>`;
+                });
+                messageContent += '</div>';
+            }
+            
+            messageDiv.innerHTML = messageContent;
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function askRelatedQuestion(question) {
+            document.getElementById('messageInput').value = question;
+            sendMessage();
+        }
+
+        // Add some sample conversation on load
+        window.onload = function() {
+            setTimeout(() => {
+                addMessage('user', 'What are the latest developments in AI?');
+                setTimeout(() => {
+                    addMessage('ai', sampleResponses.ai, true);
+                }, 1500);
+            }, 1000);
+        };
+    </script>
+</body>
+</html>
