@@ -4,12 +4,12 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/AuthContext';
 import Layout from './components/Layout/Layout';
 import CustomToaster from './components/UI/CustomToaster';
-import Home from './pages/Home';
-import Features from './pages/Features';
-import DemoBots from './pages/DemoBots';
-import Pricing from './pages/Pricing';
-import Contact from './pages/Contact';
-import Dashboard from './pages/Dashboard';
+import Home from './Pages/Home';
+import Features from './Pages/Features';
+import DemoBots from './Pages/DemoBots';
+import Pricing from './Pages/Pricing';
+import Contact from './Pages/Contact';
+import Dashboard from './Pages/Dashboard';
 
 function App() {
   return (
