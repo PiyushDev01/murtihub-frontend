@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 import Button from '../components/UI/Button';
 import { useTheme } from '../contexts/ThemeContext';
+import { useAuth } from '../contexts/AuthContext';
 
 const Contact = () => {
   const { isDarkMode } = useTheme();
+  const { user, userProfile } = useAuth();
   
   const [formData, setFormData] = useState({
     name: '',
@@ -12,6 +15,23 @@ const Contact = () => {
     subject: '',
     message: ''
   });
+
+  // Pre-fill form with user profile data if logged in
+  useEffect(() => {
+    if (userProfile) {
+      setFormData(prev => ({
+        ...prev,
+        name: userProfile.displayName || `${userProfile.firstName || ''} ${userProfile.lastName || ''}`.trim() || '',
+        email: userProfile.email || ''
+      }));
+    } else if (user) {
+      setFormData(prev => ({
+        ...prev,
+        name: user.displayName || '',
+        email: user.email || ''
+      }));
+    }
+  }, [user, userProfile]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -26,12 +46,43 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Basic form validation
+    if (!formData.name.trim()) {
+      toast.error('Please enter your name');
+      return;
+    }
+    if (!formData.email.trim()) {
+      toast.error('Please enter your email');
+      return;
+    }
+    if (!formData.message.trim()) {
+      toast.error('Please enter a message');
+      return;
+    }
+    
+    const toastId = toast.loading('Sending message...');
     setIsSubmitting(true);
     
     // Simulate form submission
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
+      
+      toast.success('Message sent successfully! We\'ll get back to you soon.', { 
+        id: toastId, 
+        icon: '🚀',
+        duration: 5000
+      });
+      
+      // Reset form
+      setFormData({
+        name: userProfile?.displayName || `${userProfile?.firstName || ''} ${userProfile?.lastName || ''}`.trim() || '',
+        email: userProfile?.email || '',
+        company: '',
+        subject: '',
+        message: ''
+      });
     }, 2000);
   };
 

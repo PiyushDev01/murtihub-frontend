@@ -12,7 +12,7 @@ const Button = ({
   const baseClasses = 'font-medium rounded-full transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none';
   
   const variants = {
-    primary: 'bg-coral-500 hover:bg-coral-600 text-white shadow-lg hover:shadow-xl focus:ring-coral-500',
+    primary: 'bg-purple-500 hover:bg-indigo-600 text-white shadow-lg hover:shadow-xl focus:ring-blue-500',
     secondary: 'bg-transparent border-2 border-white text-white hover:bg-white hover:text-purple-600 focus:ring-white',
     success: 'bg-green-500 hover:bg-green-600 text-white shadow-lg hover:shadow-xl focus:ring-green-500',
     danger: 'bg-red-500 hover:bg-red-600 text-white shadow-lg hover:shadow-xl focus:ring-red-500',

@@ -50,7 +50,7 @@ const Home = () => {
       <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
         {/* Tagline */}
         <div className="mb-8">
-          <span className={`inline-block px-6 py-2 rounded-full text-sm font-medium backdrop-blur-sm border ${
+          <span className={`inline-block px-6 py-2 rounded-full text-sm font-medium backdrop-blur-sm border  ${
             isDarkMode 
               ? 'text-white bg-white bg-opacity-20 border-white border-opacity-30' 
               : 'text-purple-700 bg-purple-100 bg-opacity-60 border-purple-300 border-opacity-40'
@@ -70,7 +70,7 @@ const Home = () => {
             <span className="blur-text-word text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">Platform</span>
           </h1>
           
-          <p className={`text-sm md:text-xl max-w-3xl font-light mx-auto leading-relaxed ${
+          <p className={`text-sm md:text-xl max-w-3xl font-light mx-auto leading-relaxed shiny-text ${
             isDarkMode ? 'text-white text-opacity-90' : 'text-gray-600'
           }`}>
             {/* Deploy intelligent AI agents with plug-and-play simplicity. <br /> */}
